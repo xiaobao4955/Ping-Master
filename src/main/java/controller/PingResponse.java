@@ -2,13 +2,15 @@ package controller;
 
 public class PingResponse {
 
-	boolean success;
-	String message;
-	long responseTime;
-	String target;
+	private boolean success;
+	private String message;
+	private long responseTime;
+	private String target;
+	private int pingCount;
 
 	public PingResponse(String target) {
 		this.target = target;
+		pingCount = 1;
 	}
 
 	public boolean isSuccess() {
@@ -43,6 +45,14 @@ public class PingResponse {
 	public String toString() {
 		return "PingResponse [success=" + success + ", message=" + message
 				+ ", responseTime=" + responseTime + "]";
+	}
+
+	public int getPingCount() {
+		return pingCount;
+	}
+
+	public void setPingCount(int pingCount) {
+		this.pingCount = pingCount;
 	}
 
 }

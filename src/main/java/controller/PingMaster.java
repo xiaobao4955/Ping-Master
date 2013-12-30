@@ -15,7 +15,7 @@ public class PingMaster {
 		URL url;
 		try {
 			url = new URL("http://" + target);
-			response.success = executePingCommand(url);		
+			response.setSuccess(executePingCommand(url));	
 			response.setMessage("Ping OK. Duration is " + response.getResponseTime());
 		} catch (MalformedURLException e) {
 			response.setMessage(e.getMessage());
@@ -47,7 +47,17 @@ public class PingMaster {
 	}
 
 	public PingResponse ping(String target, int pingCount) {
-		// TODO Auto-generated method stub
-		return null;
+		PingResponse pingResponse = new PingResponse(target);
+		pingResponse.setPingCount(pingCount);
+		
+		for (int i = 0; i < pingCount; i++) {
+			ping(target);
+			pingResponse.setResponseTime(pingResponse.getResponseTime()
+					+ response.getResponseTime());
+			pingResponse.setSuccess(response.isSuccess());
+		}
+		pingResponse.setMessage(response.getMessage());
+		
+		return pingResponse;
 	}
 }
